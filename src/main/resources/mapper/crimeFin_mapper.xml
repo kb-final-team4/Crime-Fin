@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="sql.crime-fin.mapper">
+    <!-- member Result map
+    SQL> desc member;
+     이름                                      널?      유형
+
+     MEMBER_ID                                 NOT NULL VARCHAR2(20)
+     EMAIL                                     NOT NULL VARCHAR2(40)
+     PASSWORD                                  NOT NULL VARCHAR2(20)
+     NAME                                      NOT NULL VARCHAR2(20)
+     PHONE                                     NOT NULL VARCHAR2(20)
+     ADDRESS                                            VARCHAR2(50)
+     SEX                                                NUMBER
+     REGDATE                                            DATE
+     MESSAGE_OK                                         NUMBER
+    -->
+    <resultMap id="memberResultMap" type="memberVO">
+        <id column="member_id" property="memberId"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="address" property="address"/>
+        <result column="sex" property="sex"/>
+        <result column="regdate" property="regDate"/>
+        <result column="message_ok" property="messageOk"/>
+    </resultMap>
+    <!-- 로그인 -->
+    <select id="selectMember" parameterType="memberVO" resultType="member">
+        SELECT
+        member_id, password
+        FROM member
+        WHERE member_id = #{memberId}
+            AND password = #{password}
+    </select>
+
+    <!-- 멤버 상세정보 업데이트 하기 (비밀번호 빼고)-->
+    <update id="updateMember" parameterType="memberVO">
+        UPDATE member
+        SET email=#{email}, name=#{name}, phone=#{phone}, address=#{address}, sex=#{sex}
+        WHERE member_id=#{memberId}
+    </update>
+
+    <!-- 멤버 비밀번호 업데이트할 때 입력받은 비밀번호 맞는지 보기 로그인 써도 될듯-->
+    <!--<select id="selectMemberPassword" parameterType="MemberVO" resultType="String">
+        SELECT password
+        FROM member
+        WHERE password LIKE #{password} AND id LIKE #{id}
+    </select>-->
+
+    <!-- 멤버 비밀번호 업데이트 하기-->
+    <update id="updateMemberPassword" parameterType="memberVO">
+        UPDATE member
+        SET password=#{password}
+        WHERE member_id=#{memberId}
+    </update>
+
+    <!-- 회원가입하기 -->
+    <insert id="insertMember" parameterType="memberVO">
+        INSERT INTO member(
+            member_id,
+            email,
+            password,
+            name,
+            phone,
+            address,
+            sex,
+            regdate,
+            message_ok)
+        VALUES
+            (#{memberId}, #{email}, #{password}, #{name}, #{phone}, #{address}, #{sex}, #{regDate}, #{messageOK})
+    </insert>
+
+    <!--회원 탈퇴하기 -->
+    <delete id="deleteMember" parameterType="memberVO">
+        DELETE FROM member
+        WHERE member_id LIKE #{memberId} AND password LIKE #{password}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
