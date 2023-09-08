@@ -13,8 +13,8 @@ public class MemberVO {
     private String regDate; //가입 날짜
     private int messageOk; //메세지 수신 동의 여부  1=동의, 0=비동의
 
-    private ArrayList<BankingVO>transactionHistory; //사용자의 거래 이력
-    private ArrayList<HistoryVO>phishingHistory; //사용자의 피싱 이력
+    private ArrayList<BankingVO> transactionHistory; //사용자의 거래 이력
+    private ArrayList<HistoryVO> phishingHistory; //사용자의 피싱 이력
 
 
     public MemberVO(){}
@@ -30,12 +30,12 @@ public class MemberVO {
         this.messageOk = messageOk;
     }
 
-    public String getUserId() {
+    public String getMemberId() {
         return memberId;
     }
 
-    public void setUserId(String memberId) {
-        this.memberId = MemberVO.this.memberId;
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public String getEmail() {
