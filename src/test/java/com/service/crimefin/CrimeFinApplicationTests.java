@@ -37,7 +37,7 @@ public class CrimeFinApplicationTests {
 		//
 		//    @Test
 		//	public void unit() throws Exception{
-		
+		// .
 	public static void main(String[ ] args) throws Exception{
 		
 		Reader r=Resources.getResourceAsReader("config/SqlMapConfig.xml");
