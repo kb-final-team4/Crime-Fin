@@ -80,6 +80,60 @@
         DELETE FROM member
         WHERE member_id LIKE #{memberId} AND password LIKE #{password}
     </delete>
+
+        <!-- ////////////////////////// 링크 조회 관련  ///////////////////////////// -->
+    <!-- phishingInfo resultMap -->
+    <resultMap id="phishingInfoResultMap" type="phishingInfoVO">
+    	<id column="phishing_id" property="phishingId"/>
+        <result column="phishing_num" property="phishingNum"/>
+        <result column="phishing_num_info" property="phishingNumInfo"/>
+        <result column="phishing_link" property="phishingLink"/>
+	</resultMap>	
+    
+    <!-- 앞 단계에서 번호조회를 한 유저의 피싱검색기록에서 기존 피싱 아이디 알아오기 -->
+    <select id="findOldPhishingIdForLink" parameterType = "String" resultType = "String">
+    	SELECT 
+    	phishing_id 
+    	FROM history 
+    	WHERE member_id LIKE #{VALUE} 
+    		AND history_date >= (SYSDATE - (INTERVAL '1' MINUTE))
+    </select>
+    
+     <!-- 기존 피싱 아이디가 null이면 -->
+    <!-- 1)	새 phishing_id, null, null, 현재 사용자가 입력한 피싱 링크를 phishinginfo에 저장함 -->
+    <insert id="insertPhishingInfoWithLink" parameterType = "phishingInfoVO">
+    	INSERT INTO 
+    	phishinginfo 
+    	VALUES(#{phishingId}, null, null, #{phishingLink})
+    </insert>
+    
+    <!-- 필요할까봐 일단 넣음.. 근데 링크조회에서는 안 쓰는 듯 -->
+    <!-- history resultMap -->
+    <resultMap id="historyResultMap" type="historyVO">
+    	<id column="history_id" property="historyId"/>
+        <result column="member_id" property="memberId"/>
+        <result column="history_date" property="historyDate"/>
+        <result column="phishing_id" property="phishingId"/>
+	</resultMap>
+    
+    <!-- 2)	새 History_id, 로그인된 member_id, sysdate, 새 phishing_id 를 history에 insert함  -->
+    <insert id="insertHistoryWithLink" parameterType="historyVO">
+    	INSERT INTO 
+    	history 
+    	VALUES(#{historyId}, #{memberId}, sysdate, #{phishingId})
+    </insert>
+    
+    <!-- 기존 피싱 아이디가 null이 아니면 -->
+    <!-- 현재 사용자가 입력한 피싱 링크를 
+    	기존에 있는 phishinginfo에 뽑은 phishing_id로 접근해서 
+    	phishing_link를 입력한 피싱 링크로 업데이트함 
+    -->
+    <update id="updatePhishingInfoWithLink" parameterType = "phishingInfoVO">
+    	UPDATE 
+    	phishinginfo 
+    	SET phishing_link = #{phishingLink} 
+    	WHERE phishing_id LIKE #{phishingId}
+    </update>
 </mapper>
 
 
