@@ -1,4 +1,4 @@
-package com.service.crimefin.model.impl;
+package com.service.crimefin.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
