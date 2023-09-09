@@ -113,6 +113,7 @@ public class CrimeFinApplicationTests {
 		//String memberId = session.getAttribute("memberId");
 		//String url = inputUrl;
 		//String url = "ca01.kro.kr";
+		//String url = "naver.com";
 		//String url = "jov.kr";
 		String url = "pf.kakao.com/_xjWlxmC/97724667";
 		String path = "링크검사하는페이지";
@@ -160,33 +161,47 @@ public class CrimeFinApplicationTests {
 		
 		//System.out.println(vtResultSeclookup.get("category"));
 		Set vaccineSet = vtResultLastAnalysisResults.keySet();
-		ArrayList<Integer> isSpamList = new ArrayList<Integer>();
+		int maliciousCount = 0;
+		int suspiciousCount = 0;
+		int harmlessCount = 0;
 		
 		for(Object s : vaccineSet) {
 			JSONObject vtResultVaccine = (JSONObject) vtResultLastAnalysisResults.get((String) s);
-				if(((String) vtResultVaccine.get("category")).equals("malicious")) {
-					isSpamList.add(1);
-				}
-			else {
-				isSpamList.add(0);
+			if(((String) vtResultVaccine.get("category")).equals("malicious")) {
+				maliciousCount++;
+			}
+			else if(((String) vtResultVaccine.get("category")).equals("suspicious")){
+				suspiciousCount++;
+			}
+			else if(((String) vtResultVaccine.get("category")).equals("harmless")) {
+				harmlessCount++;
 			}
 		}
-		 
-		for(int i : isSpamList) {
-			if((i&1)==1) {
-				System.out.println("This link is SPAM!!!!");
-				return;
-				//스팸일때 이 링크 저장하는 쿼리문 들어있는 서비스DAO의 적절한 메서드 호출하기
-				//serviceDAO.doLinkService(newHistoryId, newPhishingId, memberId, url);
-				//path = "링크스팸이니까결과페이지path";
-				//return path;
-				
-			}
-		}
-		System.out.println("This link is undetected. But you can try out our AI analysis for this link.");
-		//다음 페이지로 가는 path 리턴하기
-		//return path;
 		
+		if(maliciousCount > 0) {
+			System.out.println("This link is SPAM!!!!");
+			return;
+			//스팸일때 이 링크 저장하는 쿼리문 들어있는 서비스DAO의 적절한 메서드 호출하기
+			//serviceDAO.doLinkService(newHistoryId, newPhishingId, memberId, url);
+			//path = "링크스팸이니까결과페이지path";
+			//return path;
+			
+		}
+
+		else if(maliciousCount + suspiciousCount == 0 && harmlessCount > 0) {
+			System.out.println("This link is Safe.");
+			return;
+			//안전하니 결과페이지로 가는 path 리턴하기
+			//path = "링크안전결과페이지path"
+			//return path;
+			
+		}
+		else {
+			System.out.println("This link is undetected. But you can try out our AI analysis for this link.");
+			return;
+			//다음 페이지로 가는 path 리턴하기
+			//return path;
+		}
 		
 		
 	}//main 
