@@ -13,4 +13,9 @@ public interface MemberDAO {
     public int updateMemberInfo(MemberVO memberVO);
     public int updateMemberPassword(MemberVO memberVO);
     public MemberVO login(MemberVO memberVO);
+    public String findMemberId(MemberVO memberVO);
+    public int isExistMemberId(String memberId);
+    public int isExistMemberEmail(String email);
+    public int isExistMemberPhone(String phone);
+
 }

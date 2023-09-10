@@ -13,7 +13,7 @@ public class MemberDAOImpl implements MemberDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    public static final String NS = "sql.pms.mapper.";
+    public static final String NS = "sql.member.mapper.";
 
     @Override
     public List<MemberVO> select() {
@@ -43,5 +43,25 @@ public class MemberDAOImpl implements MemberDAO {
     @Override
     public MemberVO login(MemberVO memberVO) {
         return sqlSession.selectOne(NS + "selectMember", memberVO);
+    }
+
+    @Override
+    public String findMemberId(MemberVO memberVO) {
+        return sqlSession.selectOne(NS + "selectMemberId", memberVO);
+    }
+
+    @Override
+    public int isExistMemberId(String memberId) {
+        return sqlSession.selectOne(NS + "isExistMemberId", memberId);
+    }
+
+    @Override
+    public int isExistMemberEmail(String email) {
+        return sqlSession.selectOne(NS + "isExistMemberEmail", email);
+    }
+
+    @Override
+    public int isExistMemberPhone(String phone) {
+        return sqlSession.selectOne(NS + "isExistMemberPhone", phone);
     }
 }
