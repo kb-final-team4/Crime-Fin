@@ -13,7 +13,7 @@ public class MemberDAOImpl implements MemberDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    public static final String NS = "sql.member.mapper.";
+    public static final String NS = "sql.pms.mapper.";
 
     @Override
     public List<MemberVO> select() {
