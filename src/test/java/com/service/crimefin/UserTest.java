@@ -2,23 +2,16 @@ package com.service.crimefin;
 
 import com.service.crimefin.domain.MemberVO;
 import com.service.crimefin.model.MemberDAO;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Reader;
-import java.util.List;
-
 @SpringBootTest
 @Transactional
 @Commit
-public class ConnectionTest {
+public class UserTest {
 
     @Autowired
     private MemberDAO memberDAO;
