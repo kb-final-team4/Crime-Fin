@@ -4,7 +4,7 @@ public class BankingVO {
     private String bankingId; //거래 아이디
     private String memberId; //사용자 아이디
     private String accountId; //계좌 아이디
-    private String bankingDate; //거래 일자
+    private String bankingDate; //거래 일자s
     private String deposit; //예금액
     private String depositName; //입금자 명
     private String withDrawl; //출금액
