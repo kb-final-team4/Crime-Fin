@@ -13,11 +13,16 @@ public class MemberDAOImpl implements MemberDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    public static final String NS = "sql.pms.mapper.";
+    public static final String NS = "sql.crime-fin.mapper.";
 
     @Override
-    public List<MemberVO> select() {
-        return sqlSession.selectList(NS+"select");
+    public MemberVO login(MemberVO memberVO) {
+        return sqlSession.selectOne(NS+"selectMember", memberVO);
+    }
+
+    @Override
+    public int updateMemberInfo(MemberVO memberVO) {
+        return sqlSession.update(NS+"updateMember", memberVO);
     }
 
     @Override
@@ -31,17 +36,22 @@ public class MemberDAOImpl implements MemberDAO {
     }
 
     @Override
-    public int updateMemberInfo(MemberVO memberVO) {
-        return sqlSession.update(NS+"updateMember", memberVO);
+    public String selectMemberId(MemberVO memberVO) {
+        return sqlSession.selectOne(NS+"selectMemberId", memberVO);
     }
 
     @Override
-    public int updateMemberPassword(MemberVO memberVO) {
-        return sqlSession.update(NS + "updateMemberPassword", memberVO);
+    public int isExistMemberId(String memberId) {
+        return sqlSession.selectOne(NS+"isExistMemberId", memberId);
     }
 
     @Override
-    public MemberVO login(MemberVO memberVO) {
-        return sqlSession.selectOne(NS + "selectMember", memberVO);
+    public int isExistMemberEmail(String email) {
+        return sqlSession.selectOne(NS+"isExistMemberEmail", email);
+    }
+
+    @Override
+    public String selectAddress(String memberId) {
+        return sqlSession.selectOne(NS+"selectAddress", memberId);
     }
 }
