@@ -1,27 +1,23 @@
 package com.service.crimefin.model;
 
+import com.service.crimefin.domain.MemberVO;
+import com.service.crimefin.domain.PhishingInfoVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.service.crimefin.domain.PhishingInfoVO;
-import com.service.crimefin.model.PhishingInfoDAO;
+import java.util.List;
 
 @Repository
-public class PhishingInfoDAOImpl implements PhishingInfoDAO{
-	@Autowired
-	private SqlSession sqlSession;
-	private static final String NS = "sql.crime-fin.mapper.";
-	
-	@Override
-	public int insertPhishingInfoWithLink(PhishingInfoVO phishingInfoVO) {
-		return sqlSession.insert(NS+"insertPhishingInfoWithLink", phishingInfoVO);
-	}
+public class PhishingInfoDAOImpl implements PhishingInfoDAO {
 
-	
+    @Autowired
+    private SqlSession sqlSession;
 
-	@Override
-	public int updatePhishingInfoWithLink(PhishingInfoVO phishingInfoVO) {
-		return sqlSession.update(NS+"updatePhishingInfoWithLink", phishingInfoVO);
-	}
+    public static final String NS = "sql.phishinginfo.mapper.";
+
+    @Override
+    public PhishingInfoVO isPhishingNumber(String number) {
+        return sqlSession.selectOne(NS+"select", number);
+    }
 }

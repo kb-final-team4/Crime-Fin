@@ -1,8 +1,7 @@
 package com.service.crimefin.model;
 
-import com.service.crimefin.domain.HistoryVO;
+import com.service.crimefin.domain.PhishingInfoVO;
 
 public interface HistoryDAO {
-	String findOldPhishingIdForLink(String memberId);
-	int insertHistoryWithLink(HistoryVO historyVO);
+
 }
