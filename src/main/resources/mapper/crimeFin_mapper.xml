@@ -29,50 +29,45 @@
         <result column="regdate" property="regDate"/>
         <result column="message_ok" property="messageOk"/>
     </resultMap>
-    <!-- 로그인 -->
-    <select id="selectMember" parameterType="memberVO" resultType="member">
+    <!-- 1. 로그인 -->
+    <select id="selectMember" parameterType="memberVO" resultMap="memberResultMap">
         SELECT
-        member_id, password
+        member_id, email, password, name, phone, address, sex, message_ok
         FROM member
         WHERE member_id = #{memberId}
             AND password = #{password}
-    </select>
+    </select> 
 
-    <!-- 멤버 상세정보 업데이트 하기 (비밀번호 빼고)-->
+    <!-- 멤버 상세정보 업데이트 하기-->
     <update id="updateMember" parameterType="memberVO">
         UPDATE member
-        SET email=#{email}, name=#{name}, phone=#{phone}, address=#{address}, sex=#{sex}
+        SET      
+        <if test="password != null">
+        	password=#{password},
+        </if>
+        <if test="email != null">
+        	email = #{email},
+        </if>
+        <if test="name != null">
+        	name = #{name},
+        </if>
+        <if test="phone != null">
+        	phone = #{phone},
+        </if>
+        <if test="address != null">
+        	address = #{address},
+        </if>
+        	member_id = #{memberId}
         WHERE member_id=#{memberId}
     </update>
 
-    <!-- 멤버 비밀번호 업데이트할 때 입력받은 비밀번호 맞는지 보기 로그인 써도 될듯-->
-    <!--<select id="selectMemberPassword" parameterType="MemberVO" resultType="String">
-        SELECT password
-        FROM member
-        WHERE password LIKE #{password} AND id LIKE #{id}
-    </select>-->
-
-    <!-- 멤버 비밀번호 업데이트 하기-->
-    <update id="updateMemberPassword" parameterType="memberVO">
-        UPDATE member
-        SET password=#{password}
-        WHERE member_id=#{memberId}
-    </update>
+    <!-- 비밀번호 업데이트하기 전에  -->
 
     <!-- 회원가입하기 -->
     <insert id="insertMember" parameterType="memberVO">
-        INSERT INTO member(
-            member_id,
-            email,
-            password,
-            name,
-            phone,
-            address,
-            sex,
-            regdate,
-            message_ok)
+        INSERT INTO member
         VALUES
-            (#{memberId}, #{email}, #{password}, #{name}, #{phone}, #{address}, #{sex}, #{regDate}, #{messageOK})
+            (#{memberId}, #{email}, #{password}, #{name}, #{phone}, #{address}, #{sex}, sysdate, #{messageOk})
     </insert>
 
     <!--회원 탈퇴하기 -->
@@ -80,6 +75,39 @@
         DELETE FROM member
         WHERE member_id LIKE #{memberId} AND password LIKE #{password}
     </delete>
+    
+	<!--아이디 찾기
+	        이름이랑 휴대폰 번호 넣어서 인증하면
+	        현재 바인딩된 로그인 정보에서
+    -->
+    <select id="selectMemberId" parameterType="memberVO" resultType="String">
+        SELECT
+        member_id
+        FROM member
+        WHERE name LIKE #{name} AND phone LIKE #{phone}
+    </select>
+    <!-- 아이디 중복확인 -->
+    <select id="isExistMemberId" parameterType="String" resultType="int">
+        SELECT COUNT(member_id)
+        FROM member
+        WHERE member_id LIKE #{VALUE}
+    </select>
+    <!-- 이메일 중복확인... 함? -->
+    <select id="isExistMemberEmail" parameterType="String" resultType="int">
+        SELECT COUNT(email)
+        FROM member
+        WHERE email LIKE #{VALUE}
+    </select>
+
+    <!-- 지도 보여줄때 사용자 주소 기반으로 보여주기 
+    !!!!!!
+    아직 사용안했음-->
+    <select id="selectAddress" parameterType="String" resultType="String">
+        SELECT
+        address
+        FROM member
+        WHERE member_id = #{VALUE}
+    </select>
 
         <!-- ////////////////////////// 링크 조회 관련  ///////////////////////////// -->
     <!-- phishingInfo resultMap -->
