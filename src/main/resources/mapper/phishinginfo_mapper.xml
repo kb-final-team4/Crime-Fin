@@ -6,7 +6,7 @@
 
 	<select id="select" parameterType="String" resultType="phishingInfoVO">
 		SELECT
-		phishing_id, phishing_num, phishing_num_info, phishing_link
+		phishing_id, phishing_num, phishing_num_info
 		FROM phishinginfo
 		WHERE phishing_num = #{VALUE}
 	</select>
