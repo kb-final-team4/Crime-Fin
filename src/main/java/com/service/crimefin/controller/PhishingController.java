@@ -1,6 +1,13 @@
 package com.service.crimefin.controller;
 
+import com.service.crimefin.domain.PhishingInfoVO;
+import com.service.crimefin.service.PhishingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.net.URI;
@@ -8,15 +15,32 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Set;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class PhishingController {
+
+    @Autowired
+    private PhishingService phishingService;
+
+    @GetMapping("/phishing/{phoneNum}")
+    public ResponseEntity checkPhoneNum(@PathVariable String phoneNum) throws Exception{
+        PhishingInfoVO rvo = phishingService.isPhishingNumber(phoneNum);
+
+        if (rvo != null) { //번호 있으면
+            return new ResponseEntity(rvo, HttpStatus.OK);
+        } else { //번호 없으면
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+
+    }
 
     @PostMapping("/phishing/link")
     public void checkLinkIsSpam(HttpSession session, String inputUrl) throws Exception {

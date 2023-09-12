@@ -1,8 +1,12 @@
 import Vue from 'vue'
-import loginMember from './components/loginMember.vue'
+import MainPage from './components/MainPage.vue'
+import router from './router/router'
+import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(loginMember),
+  router,
+  vuetify,
+  render: h => h(MainPage)
 }).$mount('#app')
