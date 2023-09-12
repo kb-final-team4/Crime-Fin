@@ -15,5 +15,7 @@
 
     <mappers>
         <mapper resource="mapper/member_mapper.xml"/>
+        <mapper resource="mapper/phishinginfo_mapper.xml"/>
+        <mapper resource="mapper/history_mapper.xml"/>
     </mappers>
 </configuration>
