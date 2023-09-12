@@ -15,4 +15,14 @@ public class UserServiceImpl implements UserService {
     public MemberVO login(MemberVO memberVO) {
         return memberDAO.login(memberVO);
     }
+
+    @Override
+    public String findMemberId(MemberVO memberVO) {
+        return memberDAO.findMemberId(memberVO);
+    }
+
+    @Override
+    public int insertMember(MemberVO memberVO) {
+        return memberDAO.insertMember(memberVO);
+    }
 }

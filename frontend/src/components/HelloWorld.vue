@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <v-container class="content">
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
-          :src="require('../assets/logo.svg')"
+          :src="require('../assets/CRIME.png')"
           class="my-3"
           contain
           height="200"
@@ -88,6 +88,105 @@
         </v-row>
       </v-col>
     </v-row>
+
+    <div class="content">
+    <!-- 카드 목록 -->
+    <v-container>
+      <v-layout column>
+        <!-- 첫 번째 카드 -->
+        <v-flex>
+          <v-card class="mb-4" dark>
+            <!-- 썸네일 이미지 -->
+            <v-img src="썸네일1.jpg" height="200"></v-img>
+
+            <!-- 기사 링크 -->
+            <v-card-title class="headline">
+              <a href="링크1" target="_blank">기사 제목 1</a>
+            </v-card-title>
+
+            <!-- 간단한 내용 -->
+            <v-card-text>기사 요약 1</v-card-text>
+          </v-card>
+        </v-flex>
+
+        <!-- 카드 사이에 구분선 추가 -->
+        <v-divider></v-divider>
+
+        <!-- 두 번째 카드 -->
+        <v-flex>
+          <v-card class="mb-4" dark>
+            <!-- 썸네일 이미지 -->
+            <v-img src="썸네일2.jpg" height="200"></v-img>
+
+            <!-- 기사 링크 -->
+            <v-card-title class="headline">
+              <a href="링크2" target="_blank">기사 제목 2</a>
+            </v-card-title>
+
+            <!-- 간단한 내용 -->
+            <v-card-text>기사 요약 2</v-card-text>
+          </v-card>
+        </v-flex>
+
+        <!-- 카드 사이에 구분선 추가 -->
+        <v-divider></v-divider>
+
+        <!-- 세 번째 카드 -->
+        <v-flex>
+          <v-card class="mb-4" dark>
+            <!-- 썸네일 이미지 -->
+            <v-img src="썸네일3.jpg" height="200"></v-img>
+
+            <!-- 기사 링크 -->
+            <v-card-title class="headline">
+              <a href="링크3" target="_blank">기사 제목 3</a>
+            </v-card-title>
+
+            <!-- 간단한 내용 -->
+            <v-card-text>기사 요약 3</v-card-text>
+          </v-card>
+        </v-flex>
+
+        <!-- 카드 사이에 구분선 추가 -->
+        <v-divider></v-divider>
+
+        <!-- 네 번째 카드 -->
+        <v-flex>
+          <v-card class="mb-4" dark>
+            <!-- 썸네일 이미지 -->
+            <v-img src="썸네일4.jpg" height="200"></v-img>
+
+            <!-- 기사 링크 -->
+            <v-card-title class="headline">
+              <a href="링크4" target="_blank">기사 제목 4</a>
+            </v-card-title>
+
+            <!-- 간단한 내용 -->
+            <v-card-text>기사 요약 4</v-card-text>
+          </v-card>
+        </v-flex>
+
+        <!-- 카드 사이에 구분선 추가 -->
+        <v-divider></v-divider>
+
+        <!-- 다섯 번째 카드 -->
+        <v-flex>
+          <v-card class="mb-4" dark>
+            <!-- 썸네일 이미지 -->
+            <v-img src="썸네일5.jpg" height="200"></v-img>
+
+            <!-- 기사 링크 -->
+            <v-card-title class="headline">
+              <a href="링크5" target="_blank">기사 제목 5</a>
+            </v-card-title>
+
+            <!-- 간단한 내용 -->
+            <v-card-text>기사 요약 5</v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
   </v-container>
 </template>
 
@@ -95,57 +194,46 @@
   export default {
     name: 'HelloWorld',
 
-    data: () => ({
-      ecosystem: [
+    data() {
+    return {
+      articles: [
         {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
+          title: '기사 제목 1',
+          link: '링크1',
+          summary: '기사 요약 1',
+          thumbnail: '썸네일1.jpg',
         },
         {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
+          title: '기사 제목 2',
+          link: '링크2',
+          summary: '기사 요약 2',
+          thumbnail: '썸네일2.jpg',
         },
         {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com',
+          title: '기사 제목 3',
+          link: '링크3',
+          summary: '기사 요약 3',
+          thumbnail: '썸네일3.jpg',
         },
         {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
+          title: '기사 제목 4',
+          link: '링크4',
+          summary: '기사 요약 4',
+          thumbnail: '썸네일4.jpg',
         },
         {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
+          title: '기사 제목 5',
+          link: '링크5',
+          summary: '기사 요약 5',
+          thumbnail: '썸네일5.jpg',
         },
       ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer',
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
-    }),
+    };
+  },
   }
 </script>
+<style scoped>
+.content {
+  background-color: black;
+}
+</style>

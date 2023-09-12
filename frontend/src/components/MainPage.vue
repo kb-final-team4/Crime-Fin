@@ -8,9 +8,6 @@
           <v-img src="../assets/CRIME.png" alt="로고" height="120" width="240"/>
         </v-router-link>
     
-        <!-- 메뉴 버튼 -->
-        <!-- <v-app-bar-nav-icon @click="toggleMenu" /> -->
-    
         <!-- 버튼 그룹 -->
         <v-btn-toggle v-model="selectedButton" class="ml-4" >
           <v-btn @click="navigateTo('ServiceInfo')" dark>CrimeFin?</v-btn>
@@ -22,7 +19,7 @@
         <v-menu offset-y v-model="menuOpen">
           <template v-slot:activator="{ on, attrs }">
             <v-btn text v-bind="attrs" v-on="on" dark>
-              <!-- {{ loggedInUser }} 님 -->
+              {{ loggedInUser }} 님
               <v-icon>mdi-chevron-down</v-icon>
             </v-btn>
           </template>
